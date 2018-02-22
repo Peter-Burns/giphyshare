@@ -60,7 +60,12 @@ $('#signUpFormBtn').on('click', function (event) {
                 $('#signUpFormPassword').val('');
                 $('#firstNameForm').val('');
                 $('#lastNameForm').val('');
-                location.reload();
+                if(location.pathname === '/signup'){
+                    location.replace('/posts');
+                }
+                else{
+                    location.reload();
+                }
             }).catch(function (error) {
                 console.log(error);
             });
