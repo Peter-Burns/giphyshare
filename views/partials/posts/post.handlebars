@@ -10,7 +10,7 @@
     {{/if}}
     <div class="overlay">
         {{#if profilePost}}
-            <button class="btn btn-danger deletePostBtn" data-postId={{dataValues.id}}>
+            <button class="btn btn-danger deletePostBtn" data-user={{dataValues.userId}} data-postId={{dataValues.id}}>
                 <i class="fas fa-trash"></i> Delete
             </button>
         {{/if}}
