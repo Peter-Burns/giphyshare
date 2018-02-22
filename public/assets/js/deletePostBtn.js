@@ -1,6 +1,6 @@
 $('.deletePostBtn').on('click', function (event) {
     event.preventDefault();
-    if(firebase.auth().currentUser.uid === $(this).attr('data-postid')){
+    if(firebase.auth().currentUser.uid === $(this).attr('data-user')){
         $.ajax({
             method: "DELETE",
             url: "/api/post/" + $(this).attr('data-postid')
