@@ -1,9 +1,9 @@
-$('.deletePostBtn').on('click', function (event) {
+$(".deletePostBtn").on("click", function (event) {
     event.preventDefault();
-    if(firebase.auth().currentUser.uid === $(this).attr('data-user')){
+    if(firebase.auth().currentUser.uid === $(this).attr("data-user")){
         $.ajax({
             method: "DELETE",
-            url: "/api/post/" + $(this).attr('data-postid')
+            url: "/api/post/" + $(this).attr("data-postid")
         }).then(function(){
             location.reload();
         });

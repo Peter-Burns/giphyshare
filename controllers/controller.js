@@ -7,15 +7,11 @@ router.get("/", function (req, res) {
     res.render("index");
 });
 
-router.get("/messages", function (req, res) {
-    res.render("messages");
-});
-
 router.get("/posts", function (req, res) {
     db.post.findAll({
         include: [db.user],
         order: [
-            ['createdAt', 'DESC']
+            ["createdAt", "DESC"]
         ]
     }).then(function (postsArr) {
         var posts = {
@@ -32,13 +28,13 @@ router.get("/feed/:id", function (req, res) {
             required: true,
             include: [{
                 model: db.follower,
-                as: 'Followers',
+                as: "Followers",
                 where: { userId: req.params.id },
                 required: true
             }]
         }],
         order: [
-            ['createdAt', 'DESC']
+            ["createdAt", "DESC"]
         ]
     }).then(function (postsArr) {
         var posts = {
@@ -64,7 +60,7 @@ router.get("/post/:id", function (req, res) {
         db.subpost.findAll({
             where: { postId: req.params.id },
             order: [
-                ['createdAt', 'ASC']
+                ["createdAt", "ASC"]
             ]
         }).then(function (dbSubpost) {
             res.render("post", {
@@ -89,13 +85,13 @@ router.get("/user/:id", function (req, res) {
         where: { userId: req.params.id },
         include: [db.user],
         order: [
-            ['createdAt', 'ASC']
+            ["createdAt", "ASC"]
         ]
     }).then(function (dbPost) {
         var posts = { posts: dbPost };
         if (dbPost.length) posts = {
             posts: dbPost,
-            userName: dbPost[0].dataValues.user.firstName + ' ' + dbPost[0].dataValues.user.lastName,
+            userName: dbPost[0].dataValues.user.firstName + " " + dbPost[0].dataValues.user.lastName,
             userId: dbPost[0].dataValues.userId
         };
         res.render("user", posts);
@@ -107,13 +103,13 @@ router.get("/profile/:id", function (req, res) {
         where: { userId: req.params.id },
         include: [db.user],
         order: [
-            ['createdAt', 'ASC']
+            ["createdAt", "ASC"]
         ]
     }).then(function (dbPost) {
-        var posts ={posts:dbPost};
-        if(dbPost.length)posts={
+        var posts = { posts: dbPost };
+        if (dbPost.length) posts = {
             posts: dbPost,
-            userName: dbPost[0].dataValues.user.firstName + ' ' + dbPost[0].dataValues.user.lastName,
+            userName: dbPost[0].dataValues.user.firstName + " " + dbPost[0].dataValues.user.lastName,
             userId: dbPost[0].dataValues.userId
         };
         res.render("profile", posts);

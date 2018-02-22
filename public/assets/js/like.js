@@ -11,7 +11,6 @@ $('.likeBtn').on('click', function (event) {
         $.ajax('/api/likes/' + $(self).attr('data-postid'), {
             type: 'GET'
         }).then(function(res){
-            console.log(res);
             if(res.length){
                 $(self).prepend('<b>' + res.length + '</b>');
             }

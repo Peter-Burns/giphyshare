@@ -1,3 +1,3 @@
-$('.signUpBtn').on('click', function(event){
+$(".signUpBtn").on("click", function(event){
     event.preventDefault();
 });
