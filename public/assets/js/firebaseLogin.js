@@ -107,7 +107,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         $('#feedLinkNav').attr('href', '/feed/' + user.uid);
         $('#loginNav').hide();
         $('#signUpNav').hide();
-        $('#navUserLink').attr('href', '/user/' + user.uid);
+        $('#navUserLink').attr('href', '/profile/' + user.uid);
         $('.postBtn').show();
         $('.postBtn').attr('data-user', user.uid);
         $('#followBtn').attr('data-user', user.uid);

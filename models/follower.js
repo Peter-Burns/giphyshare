@@ -28,7 +28,8 @@ module.exports = function(sequelize, DataTypes) {
       foreignKey: {
         name: "followerId",
         allowNull: false
-      }
+      },
+      onDelete: "CASCADE"
     });
   };
 

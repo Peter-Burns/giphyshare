@@ -9,6 +9,11 @@
          <img class="img-fluid rounded postPic" data-original={{images.original.url}} data-fixed-small={{images.fixed_height_small_still.url}} data-fixed={{images.fixed_height_downsampled.webp}} src={{images.fixed_height_still.url}}>
     {{/if}}
     <div class="overlay">
+        {{#if profilePost}}
+            <button class="btn btn-danger deletePostBtn" data-postId={{dataValues.id}}>
+                <i class="fas fa-trash"></i> Delete
+            </button>
+        {{/if}}
         {{#unless searchPost}}
             <button class="btn btn-secondary likeBtn" data-postId={{dataValues.id}}>
                 <i class="far fa-thumbs-up"></i> Like

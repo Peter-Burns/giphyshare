@@ -2,16 +2,6 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-  // get all followers for a particular userId
-  app.get("/api/followers/:id", function(req, res) {
-    db.follower.findAll({
-      where: { userId: req.param.id },
-      include: ["Followers"]
-    }).then(function(dbFollower) {
-      res.json(dbFollower);
-    });
-  });
-
   // add follower
   app.post("/api/followers", function(req, res) {
     db.follower.create(req.body).then(function(dbFollower) {
@@ -19,9 +9,14 @@ module.exports = function(app) {
     });
   });
 
-  // add follower
-  app.post("/api/followers", function(req, res) {
-    db.follower.create(req.body).then(function(dbFollower) {
+  // delete route for unfollowing users
+  app.delete("/api/follwers/:id", function(req, res) {
+    db.follower.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(function(dbFollower) {
       res.json(dbFollower);
     });
   });

@@ -102,6 +102,24 @@ router.get("/user/:id", function (req, res) {
     });
 });
 
+router.get("/profile/:id", function (req, res) {
+    db.post.findAll({
+        where: { userId: req.params.id },
+        include: [db.user],
+        order: [
+            ['createdAt', 'ASC']
+        ]
+    }).then(function (dbPost) {
+        var posts ={posts:dbPost};
+        if(dbPost.length)posts={
+            posts: dbPost,
+            userName: dbPost[0].dataValues.user.firstName + ' ' + dbPost[0].dataValues.user.lastName,
+            userId: dbPost[0].dataValues.userId
+        };
+        res.render("profile", posts);
+    });
+});
+
 router.post("/search", function (req, res) {
     var offset = parseInt(req.body.offset);
     request("https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&limit=16&q=" + req.body.search + "&offset=" + ((offset - 1) * 16), function (err, response, body) {

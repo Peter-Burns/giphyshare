@@ -1,91 +1,91 @@
 use giphyshare;
 
-insert into users (id, username, password, firstName, lastName, city, state, country, description, createdAt, updatedAt)
-values ('1', 'brian.cocherell@gmail.com', 'password', 'Brian', 'Cocherell', 'Cleveland', 'OH', 'US', 'Cool Guy', '2018-02-16', '2018-02-16'),
-('2', 'peterburnshicks@gmail.com', 'password', 'Peter', 'Burns', 'Cleveland', 'OH', 'US', 'Cool Guy', '2018-02-16', '2018-02-16'),
-('3', 'mockbee1000@gmail.com', 'password', 'Jon', 'Mockbee', 'Cleveland', 'OH', 'US', 'Cool Guy', '2018-02-16', '2018-02-16'),
-('4', 'joemalov@gmail.com', 'password', 'Joe', 'Malovasic', 'Cleveland', 'OH', 'US', 'Cool Guy', '2018-02-16', '2018-02-16');
+insert into users (id, username, firstName, lastName, createdAt, updatedAt)
+values ('1', 'brian.cocherell@gmail.com', 'Brian', 'Cocherell', now(), now()),
+('2', 'peterburnshicks@gmail.com', 'Peter', 'Burns', now(), now()),
+('3', 'mockbee1000@gmail.com', 'Jon', 'Mockbee', now(), now()),
+('4', 'joemalov@gmail.com', 'Joe', 'Malovasic', now(), now());
 
 insert into followers (userId, followerId, createdAt, updatedAt)
-values ('1', '2', '2018-02-16', '2018-02-16'),
-('1', '3', '2018-02-16', '2018-02-16'),
-('2', '1', '2018-02-16', '2018-02-16'),
-('2', '4', '2018-02-16', '2018-02-16'),
-('3', '2', '2018-02-16', '2018-02-16'),
-('3', '4', '2018-02-16', '2018-02-16'),
-('4', '1', '2018-02-16', '2018-02-16'), 
-('4', '2', '2018-02-16', '2018-02-16');
+values ('1', '2', now(), now()),
+('1', '3', now(), now()),
+('2', '1', now(), now()),
+('2', '4', now(), now()),
+('3', '2', now(), now()),
+('3', '4', now(), now()),
+('4', '1', now(), now()),
+('4', '2', now(), now());
 
-insert into posts (userId, url, urlStill, urlOriginal, urlOriginalStill, comment, createdAt, updatedAt, title)
+insert into posts (userId, url, urlStill, urlOriginal, urlOriginalStill, comment, title, createdAt, updatedAt)
 values ('1',
 'https://media3.giphy.com/media/mCRJDo24UvJMA/200w.gif',
 'https://media3.giphy.com/media/mCRJDo24UvJMA/200w_s.gif',
 'https://media3.giphy.com/media/mCRJDo24UvJMA/giphy.gif',
 'https://media3.giphy.com/media/mCRJDo24UvJMA/giphy_s.gif',
-'Post 1', '2018-02-09', '2018-02-09', 'Post 1'),
+'Post 1', 'Post 1', now(), now()),
 ('1',
 'https://media3.giphy.com/media/xThtadSLoInlcD1UmA/200w.gif',
 'https://media3.giphy.com/media/xThtadSLoInlcD1UmA/200w_s.gif',
 'https://media3.giphy.com/media/xThtadSLoInlcD1UmA/giphy.gif',
 'https://media3.giphy.com/media/xThtadSLoInlcD1UmA/giphy_s.gif',
-'Post 2', '2018-02-10', '2018-02-10', 'Post 2'),
+'Post 2', 'Post 2', now(), now()),
 ('2',
 'https://media3.giphy.com/media/dTJd5ygpxkzWo/200w.gif',
 'https://media3.giphy.com/media/dTJd5ygpxkzWo/200w_s.gif',
 'https://media3.giphy.com/media/dTJd5ygpxkzWo/giphy.gif',
 'https://media3.giphy.com/media/dTJd5ygpxkzWo/giphy_s.gif',
-'Post 1', '2018-02-11', '2018-02-11', 'Post 1'),
+'Post 1', 'Post 1', now(), now()),
 ('2',
 'https://media3.giphy.com/media/wjK3YnjoQf0go/200w.gif',
 'https://media3.giphy.com/media/wjK3YnjoQf0go/200w_s.gif',
 'https://media3.giphy.com/media/wjK3YnjoQf0go/giphy.gif',
 'https://media3.giphy.com/media/wjK3YnjoQf0go/giphy_s.gif',
-'Post 2', '2018-02-12', '2018-02-12', 'Post 2'),
+'Post 2', 'Post 2', now(), now()),
 ('3',
 'https://media3.giphy.com/media/nrN8fUJ4EZn5m/200w.gif',
 'https://media3.giphy.com/media/nrN8fUJ4EZn5m/200w_s.gif',
 'https://media3.giphy.com/media/nrN8fUJ4EZn5m/giphy.gif',
 'https://media3.giphy.com/media/nrN8fUJ4EZn5m/giphy_s.gif',
-'Post 1', '2018-02-13', '2018-02-13', 'Post 1'),
+'Post 1', 'Post 1', now(), now()),
 ('3',
 'https://media3.giphy.com/media/BdhtvnPILhdYs/200w.gif',
 'https://media3.giphy.com/media/BdhtvnPILhdYs/200w_s.gif',
 'https://media3.giphy.com/media/BdhtvnPILhdYs/giphy.gif',
 'https://media3.giphy.com/media/BdhtvnPILhdYs/giphy_s.gif',
-'Post 2', '2018-02-14', '2018-02-14', 'Post 2'),
+'Post 2', 'Post 2', now(), now()),
 ('4',
 'https://media3.giphy.com/media/naXyAp2VYMR4k/200w.gif',
 'https://media3.giphy.com/media/naXyAp2VYMR4k/200w_s.gif',
 'https://media3.giphy.com/media/naXyAp2VYMR4k/giphy.gif',
 'https://media3.giphy.com/media/naXyAp2VYMR4k/giphy_s.gif',
-'Post 1', '2018-02-15', '2018-02-15', 'Post 1'),
+'Post 1', 'Post 1', now(), now()),
 ('4',
 'https://media3.giphy.com/media/oDLDbBgf0dkis/200w.gif',
 'https://media3.giphy.com/media/oDLDbBgf0dkis/200w_s.gif',
 'https://media3.giphy.com/media/oDLDbBgf0dkis/giphy.gif',
 'https://media3.giphy.com/media/oDLDbBgf0dkis/giphy_s.gif',
-'Post 2', '2018-02-16', '2018-02-16', 'Post 2');
+'Post 2', 'Post 2', now(), now());
 
-insert into subposts (userId, postId, url, urlStill, urlOriginal, urlOriginalStill, comment, createdAt, updatedAt, title)
+insert into subposts (userId, postId, url, urlStill, urlOriginal, urlOriginalStill, comment, title, createdAt, updatedAt)
 values ('2', 1,
 'https://media3.giphy.com/media/xUA7aQaXbhnkX4znm8/200w.gif',
 'https://media3.giphy.com/media/xUA7aQaXbhnkX4znm8/200w_s.gif',
 'https://media3.giphy.com/media/xUA7aQaXbhnkX4znm8/giphy.gif',
 'https://media3.giphy.com/media/xUA7aQaXbhnkX4znm8/giphy_s.gif',
-'Subpost 1', '2018-02-16', '2018-02-16', 'Subpost 1'),
+'Subpost 1', 'Subpost 1', now(), now()),
 ('1', 3,
 'https://media3.giphy.com/media/d3erWmTEGXoiYVgY/200w.gif',
 'https://media3.giphy.com/media/d3erWmTEGXoiYVgY/200w_s.gif',
 'https://media3.giphy.com/media/d3erWmTEGXoiYVgY/giphy.gif',
 'https://media3.giphy.com/media/d3erWmTEGXoiYVgY/giphy_s.gif',
-'Subpost 1', '2018-02-16', '2018-02-16', 'Subpost 2');
+'Subpost 1', 'Subpost 2', now(), now());
 
 insert into likes (userId, postId, createdAt, updatedAt)
-values ('1', 2, '2018-02-16', '2018-02-16'), 
-('1', 5, '2018-02-16', '2018-02-16'),
-('2', 1, '2018-02-16', '2018-02-16'),
-('2', 7, '2018-02-16', '2018-02-16'),
-('3', 3, '2018-02-16', '2018-02-16'),
-('3', 8, '2018-02-16', '2018-02-16'), 
-('4', 1, '2018-02-16', '2018-02-16'),
-('4', 3, '2018-02-16', '2018-02-16');
+values ('1', 2, now(), now()),
+('1', 5, now(), now()),
+('2', 1, now(), now()),
+('2', 7, now(), now()),
+('3', 3, now(), now()),
+('3', 8, now(), now()),
+('4', 1, now(), now()),
+('4', 3, now(), now());

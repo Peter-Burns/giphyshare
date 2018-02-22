@@ -1,0 +1,12 @@
+{{> navs/navBar user='active'}}
+    <h2 class="text-secondary">{{userName}}
+    </h2>
+{{#if posts}}
+    <div class="card-columns">
+        {{#each posts}}
+        <a href="/post/{{dataValues.id}}">
+            {{> posts/post multiPost=true profilePost=true}}
+        </a>
+        {{/each}}
+    </div>
+{{/if}}

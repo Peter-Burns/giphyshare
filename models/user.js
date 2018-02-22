@@ -6,13 +6,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true
     },
-    password: DataTypes.STRING,
     firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    city: DataTypes.STRING,
-    state: DataTypes.STRING,
-    country: DataTypes.STRING,
-    description: DataTypes.STRING
+    lastName: DataTypes.STRING
   });
 
   User.associate = function(models) {
