@@ -49,7 +49,7 @@ router.get("/login", function (req, res) {
 });
 
 router.get("/signup", function (req, res) {
-    res.render("signup");
+    res.render("signup",{signUpPage:true});
 });
 
 router.get("/post/:id", function (req, res) {
