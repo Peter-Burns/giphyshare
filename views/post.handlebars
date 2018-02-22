@@ -1,15 +1,14 @@
 {{> navs/navBar }}
-<h2 class="text-primary text-center">{{dataValues.title}}</h2>
-
-<h4>
-    <a class="text-secondary" href="/user/{{dataValues.author.id}}">{{dataValues.author.firstName}} {{dataValues.author.lastName}}</a>
-    <button id="followBtn" data-id={{dataValues.author.id}} class="btn btn-primary">
-        <i class="fas fa-user-plus"></i>Follow
-    </button>
-</h4>
+<h2 class="text-secondary text-center">{{dataValues.title}}</h2>
 
 <div class="row justify-content-center">
         {{> posts/post singlePost=true}}
 </div>
-<h3 class="text-secondary text-left">{{dataValues.comment}}</h3>
+<h5 class="text-secondary text-center">{{dataValues.comment}}</h5>
+<h5>
+    <a class="text-primary" href="/user/{{dataValues.author.id}}">{{dataValues.author.firstName}} {{dataValues.author.lastName}}</a>
+    <button id="followBtn" data-id={{dataValues.author.id}} class="btn btn-primary">
+        <i class="fas fa-user-plus"></i>Follow
+    </button>
+</h5>
 {{> comments/commentSection}}

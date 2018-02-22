@@ -139,5 +139,6 @@ firebase.auth().onAuthStateChanged(function (user) {
         $('#submitComment').attr('data-user', '');
         $('#accountBtn').show();
         $('.signUpBtn').show();
+        $('.deletePostBtn').attr('data-user','');
     }
 });
