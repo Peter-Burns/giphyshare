@@ -21,21 +21,27 @@ firebase.auth().onAuthStateChanged(function (user) {
                     if (convoRef) convoRef.off();
                     convoRef = database.ref('users/' + user.uid + '/' + convoId);
                     convoRef.on('child_added', function (snap) {
-                        if (snap.val().match(/(https?:\/\/.*\.(?:png|jpg|gif))/i)) {
-                            $('#messages').append('<li class="list-group-item"><img class="img-fluid" src="' + snap.val() + '"/></li>');
-                        }
-                        else if(snap.val().match(/(https:\/\/quiet-refuge-15988\.herokuapp\.com\/post\/)/i)){
-                            var postId = snap.val().split('/').pop();
-                            $.ajax("/api/post/" + postId, {
-                                type: "GET"
-                            }).then(function(res){
-                                $('#messages').append('<li class="list-group-item"><img class="img-fluid" src="' + res[0].url + '"/></li>');
-                            });
-                        }
-                        else {
-                            $('#messages').append('<li class="list-group-item">' + snap.val() + '</li>');
-                        }
-                        $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+                        $.ajax("/api/users/" + snap.val().sender, {
+                            type: "GET"
+                        }).then(function (res) {
+                            if (snap.val().message.match(/(https?:\/\/.*\.(?:png|jpg|gif))/i)) {
+                                $('#messages').append('<li class="list-group-item"><img class="img-fluid" src="' + snap.val().message + '"/>' + '<h6 class="text-right font-weight-light">' + res.username + '</h6></li>');
+                                $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+                            }
+                            else if (snap.val().message.match(/(https:\/\/quiet-refuge-15988\.herokuapp\.com\/post\/)/i)) {
+                                var postId = snap.val().message.split('/').pop();
+                                $.ajax("/api/post/" + postId, {
+                                    type: "GET"
+                                }).then(function (result) {
+                                    $('#messages').append('<li class="list-group-item"><img class="img-fluid" src="' + result[0].url + '"/>' + '<h6 class="text-right font-weight-light">' + res.username + '</h6></li>');
+                                    $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+                                });
+                            }
+                            else {
+                                $('#messages').append('<li class="list-group-item">' + snap.val().message + '<h6 class="text-right font-weight-light">' + res.username + '</h6>' + '</li>');
+                                $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+                            }
+                        });
                     });
                 });
             });
@@ -53,8 +59,14 @@ $('#sendMessage').on('click', function (event) {
         var database = firebase.database();
         var fromRef = database.ref('users/' + $(this).attr('data-from') + '/' + $(this).attr('data-to'));
         var toRef = database.ref('users/' + $(this).attr('data-to') + '/' + $(this).attr('data-from'));
-        fromRef.push($('#postMessage').val());
-        toRef.push($('#postMessage').val());
+        fromRef.push({
+            message: $('#postMessage').val(),
+            sender: $(this).attr('data-from')
+        });
+        toRef.push({
+            message: $('#postMessage').val(),
+            sender: $(this).attr('data-from')
+        });
         $('#postMessage').val('');
     }
 });

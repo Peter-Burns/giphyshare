@@ -31,10 +31,12 @@ $(".unfollowUserBtn").on("click", function (event) {
 $('.startConvo').on('click', function (event) {
     event.preventDefault();
     var database = firebase.database();
-    var fromRef = database.ref('users/' + $(this).attr('data-from') + '/' + $(this).attr('data-to'));
-    var toRef = database.ref('users/' + $(this).attr('data-to') + '/' + $(this).attr('data-from'));
-    fromRef.push('Hi!', function () {
-        toRef.push('Hi!', function () {
+    var sender = $(this).attr('data-from');
+    var recipient = $(this).attr('data-to');
+    var fromRef = database.ref('users/' + sender + '/' + recipient);
+    var toRef = database.ref('users/' + recipient + '/' + sender);
+    fromRef.push({message: 'Hi!', sender: sender}, function () {
+        toRef.push({message: 'Hi!', sender: sender}, function () {
             location.replace('/messages');
         });
     });
