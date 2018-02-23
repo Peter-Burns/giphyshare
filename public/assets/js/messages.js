@@ -21,23 +21,16 @@ firebase.auth().onAuthStateChanged(function (user) {
                     if (convoRef) convoRef.off();
                     convoRef = database.ref('users/' + user.uid + '/' + convoId);
                     convoRef.on('child_added', function (snap) {
-                            if (snap.val().message.match(/(https?:\/\/.*\.(?:png|jpg|gif))/i)) {
-                                $('#messages').append('<li class="list-group-item firebaseMessage"><img class="img-fluid" src="' + snap.val().message + '"/><h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
-                                $('#messages').scrollTop($('#messages').prop('scrollHeight'));
-                            }
-                            else if (snap.val().message.match(/(https:\/\/quiet-refuge-15988\.herokuapp\.com\/post\/)/i)) {
-                                var postId = snap.val().message.split('/').pop();
-                                $.ajax("/api/post/" + postId, {
-                                    type: "GET"
-                                }).then(function (result) {
-                                    $('#messages').append('<li class="list-group-item firebaseMessage"><img class="img-fluid" src="' + result[0].url + '"/><h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
-                                    $('#messages').scrollTop($('#messages').prop('scrollHeight'));
-                                });
-                            }
-                            else {
-                                $('#messages').append('<li class="list-group-item firebaseMessage">' + snap.val().message + '<h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
-                                $('#messages').scrollTop($('#messages').prop('scrollHeight'));
-                            }
+                        if (snap.val().message.match(/(https?:\/\/.*\.(?:png|jpg|gif))/i)) {
+                            $('#messages').append('<li class="list-group-item firebaseMessage"><img class="img-fluid" src="' + snap.val().message + '"/><h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
+                        }
+                        else if (snap.val().message.match(/(https:\/\/quiet-refuge-15988\.herokuapp\.com\/post\/)/i)) {
+                            var postId = snap.val().message.split('/').pop();
+                            $('#messages').append('<li class="list-group-item localPic firebaseMessage" data-postId=' + postId + '><h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
+                        }
+                        else {
+                            $('#messages').append('<li class="list-group-item firebaseMessage">' + snap.val().message + '<h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
+                        }
                     });
                 });
             });
@@ -66,13 +59,26 @@ $('#sendMessage').on('click', function (event) {
         $('#postMessage').val('');
     }
 });
+
 $('body').on('DOMNodeInserted', 'li.firebaseMessage', function () {
     $(this).removeClass('firebaseMessage');
     var senderName = $(this).children('h6')[0];
     $.ajax("/api/users/" + $(senderName).attr('data-sender'), {
         type: "GET"
-    }).then(function(res){
+    }).then(function (res) {
         $(senderName).text(res.username);
+        $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+    });
+});
+
+$('body').on('DOMNodeInserted', 'li.localPic', function () {
+    $(this).removeClass('localPic');
+    var localPic = $(this);
+    var postId = $(this).attr('data-postId');
+    $.ajax("/api/post/" + postId, {
+        type: "GET"
+    }).then(function (res) {
+        localPic.prepend('<img class="img-fluid" src="' + res[0].url + '"/>');
         $('#messages').scrollTop($('#messages').prop('scrollHeight'));
     });
 });
