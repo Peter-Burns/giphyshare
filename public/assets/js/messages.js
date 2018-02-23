@@ -26,7 +26,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                         }
                         else if (snap.val().message.match(/(https:\/\/quiet-refuge-15988\.herokuapp\.com\/post\/)/i)) {
                             var postId = snap.val().message.split('/').pop();
-                            $('#messages').append('<li class="list-group-item localPic firebaseMessage" data-postId=' + postId + '><h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
+                            $('#messages').append('<li class="list-group-item localPic firebaseMessage" data-link="' + snap.val().message + '" data-postId=' + postId + '><h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
                         }
                         else {
                             $('#messages').append('<li class="list-group-item firebaseMessage">' + snap.val().message + '<h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
@@ -74,11 +74,12 @@ $('body').on('DOMNodeInserted', 'li.firebaseMessage', function () {
 $('body').on('DOMNodeInserted', 'li.localPic', function () {
     $(this).removeClass('localPic');
     var localPic = $(this);
-    var postId = $(this).attr('data-postId');
+    var postId = localPic.attr('data-postId');
+    var picLink = localPic.attr('data-link');
     $.ajax("/api/post/" + postId, {
         type: "GET"
     }).then(function (res) {
-        localPic.prepend('<img class="img-fluid" src="' + res[0].url + '"/>');
+        localPic.prepend('<a href="' + picLink + '"> <img class="img-fluid" src="' + res[0].url + '"/></a>');
         $('#messages').scrollTop($('#messages').prop('scrollHeight'));
     });
 });
