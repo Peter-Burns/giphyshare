@@ -1,12 +1,28 @@
 {{> navs/navBar user="active"}}
-    <h2 class="text-secondary">{{userName}}
+    <h2 class="text-secondary">{{username}}
     </h2>
 {{#if posts}}
     <div class="card-columns">
         {{#each posts}}
-        <a href="/post/{{dataValues.id}}">
+        <a href="/post/{{id}}">
             {{> posts/post multiPost=true profilePost=true}}
         </a>
+        {{/each}}
+    </div>
+{{/if}}
+{{#if followers}}
+    <h2 class="text-secondary">Following:</h2>
+    <div class="text-secondary">
+        {{#each followers}}
+        <ul class="comments rounded">
+            <li>
+                <p>{{username}}&nbsp;&nbsp;
+                <button type="submit" data-user={{Followers.0.userId}} data-id={{Followers.0.id}} class="unfollowUserBtn btn btn-outline-danger btn-sm">
+                    <i class="fas fa-user-times"></i> Unfollow
+                </button>
+                </p>
+            </li>     
+        </ul>
         {{/each}}
     </div>
 {{/if}}

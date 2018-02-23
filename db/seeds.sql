@@ -1,10 +1,10 @@
 use giphyshare;
 
 insert into users (id, username, firstName, lastName, createdAt, updatedAt)
-values ('1', 'brian.cocherell@gmail.com', 'Brian', 'Cocherell', now(), now()),
-('2', 'peterburnshicks@gmail.com', 'Peter', 'Burns', now(), now()),
-('3', 'mockbee1000@gmail.com', 'Jon', 'Mockbee', now(), now()),
-('4', 'joemalov@gmail.com', 'Joe', 'Malovasic', now(), now());
+values ('1', 'Brian Cocherell', 'Brian', 'Cocherell', now(), now()),
+('2', 'Peter Burns', 'Peter', 'Burns', now(), now()),
+('3', 'Jon Mockbee', 'Jon', 'Mockbee', now(), now()),
+('4', 'Joe Malovasic', 'Joe', 'Malovasic', now(), now());
 
 insert into followers (userId, followerId, createdAt, updatedAt)
 values ('1', '2', now(), now()),

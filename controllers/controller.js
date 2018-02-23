@@ -99,20 +99,35 @@ router.get("/user/:id", function (req, res) {
 });
 
 router.get("/profile/:id", function (req, res) {
-    db.post.findAll({
-        where: { userId: req.params.id },
-        include: [db.user],
-        order: [
-            ["createdAt", "ASC"]
-        ]
+    db.user.findAll({
+        where: { id: req.params.id },
+        include: [{
+            model: db.post,
+            required: false,
+            order: [
+                ["createdAt", "ASC"]
+            ]
+        }]
     }).then(function (dbPost) {
-        var posts = { posts: dbPost };
-        if (dbPost.length) posts = {
-            posts: dbPost,
-            userName: dbPost[0].dataValues.user.firstName + " " + dbPost[0].dataValues.user.lastName,
-            userId: dbPost[0].dataValues.userId
-        };
-        res.render("profile", posts);
+        db.user.findAll({
+            include: [{
+                model: db.follower,
+                as: "Followers",
+                required: true,
+                where: { userId: req.params.id }
+            }],
+            order: [
+                ["firstName", "ASC"]
+            ]
+        }).then(function (dbFollowers) {
+            var userInfo = {
+                posts: dbPost[0].posts,
+                followers: dbFollowers,
+                username: dbPost[0].username,
+                userId: dbPost[0].userId
+            };
+            res.render("profile", userInfo);
+        });
     });
 });
 
