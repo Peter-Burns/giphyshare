@@ -10,7 +10,7 @@ module.exports = function(app) {
   });
 
   // delete route for unfollowing users
-  app.delete("/api/follwers/:id", function(req, res) {
+  app.delete("/api/followers/:id", function(req, res) {
     db.follower.destroy({
       where: {
         id: req.params.id

@@ -30,3 +30,22 @@
 .comments {
     background: rgba(255, 255, 255, 0.1);
 }
+.userDropDown{
+    background:#4d4d4d;
+}
+.messageCenter{
+    padding:20px;
+    max-height: 75vh;
+}
+#messages{
+    margin-top:20px;
+    overflow-y: auto;
+    max-height:75%;
+}
+.convoTab{
+    margin-top:20px;
+    overflow-y: auto;
+}
+#messageForm{
+    margin-top:20px;
+}

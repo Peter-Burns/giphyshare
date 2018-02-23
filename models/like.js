@@ -1,14 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Like = sequelize.define("like", {
-    userId: {
-      type: DataTypes.STRING,
-      unique: "userIdpostId"
-    },
-    postId: {
-      type: DataTypes.INTEGER,
-      unique: "userIdpostId"
-    }
-  });
+  var Like = sequelize.define("like", {});
 
   Like.associate = function(models) {
     Like.belongsTo(models.user, {

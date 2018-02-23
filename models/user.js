@@ -3,8 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     id: { type: DataTypes.STRING, primaryKey: true },
     username: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING
