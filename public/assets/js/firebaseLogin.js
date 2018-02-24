@@ -10,89 +10,126 @@ firebase.initializeApp(config);
 
 $('#signUpBtn').on('click', function (event) {
     event.preventDefault();
-    firebase.auth().createUserWithEmailAndPassword($('#signUpEmail').val(), $('#signUpPassword').val()).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-    }).then(function (user) {
-        user.updateProfile({
-            displayName: $('#firstName').val() + ' ' + $('#lastName').val(),
-        }).then(function () {
-            $.ajax('/api/users', {
-                type: 'POST',
-                data: {
-                    id: user.uid,
-                    firstName: $('#firstName').val(),
-                    lastName: $('#lastName').val(),
-                    username: $('#firstName').val() + ' ' + $('#lastName').val()
-                }
+    if ($('#signUpEmail').val().match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/) && $('#signUpPassword').val().length > 5 && $('#firstName').val() && $('#lastName').val()) {
+        firebase.auth().createUserWithEmailAndPassword($('#signUpEmail').val(), $('#signUpPassword').val()).catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        }).then(function (user) {
+            user.updateProfile({
+                displayName: $('#firstName').val() + ' ' + $('#lastName').val(),
             }).then(function () {
-                $('#signUpEmail').val('');
-                $('#signUpPassword').val('');
-                $('#firstName').val('');
-                $('#lastName').val('');
-                location.reload();
-            }).catch(function (error) {
-                console.log(error);
+                $.ajax('/api/users', {
+                    type: 'POST',
+                    data: {
+                        id: user.uid,
+                        firstName: $('#firstName').val(),
+                        lastName: $('#lastName').val(),
+                        username: $('#firstName').val() + ' ' + $('#lastName').val()
+                    }
+                }).then(function () {
+                    $('#signUpEmail').val('');
+                    $('#signUpPassword').val('');
+                    $('#firstName').val('');
+                    $('#lastName').val('');
+                    location.reload();
+                }).catch(function (error) {
+                    console.log(error);
+                });
             });
         });
-    });
+    }
+    else {
+        $("#signup-nav").before('<div class="alert alert-primary" role="alert">All fields required<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        if (alertTimeout) clearTimeout(alertTimeout);
+        alertTimeout = setTimeout(function () {
+            $(".alert").remove();
+        }, 5000);
+    }
+
 });
 
 $('#signUpFormBtn').on('click', function (event) {
     event.preventDefault();
-    firebase.auth().createUserWithEmailAndPassword($('#signUpFormEmail').val(), $('#signUpFormPassword').val()).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-    }).then(function (user) {
-        user.updateProfile({
-            displayName: $('#firstNameForm').val() + ' ' + $('#lastNameForm').val(),
-        }).then(function () {
-            $.ajax('/api/users', {
-                type: 'POST',
-                data: {
-                    id: user.uid,
-                    firstName: $('#firstNameForm').val(),
-                    lastName: $('#lastNameForm').val(),
-                    username: $('#firstNameForm').val() + ' ' + $('#lastNameForm').val()
-                }
+    if ($('#signUpFormEmail').val().match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/) && $('#signUpFormPassword').val().length > 5 && $('#firstNameForm').val() && $('#lastNameForm').val()) {
+        firebase.auth().createUserWithEmailAndPassword($('#signUpFormEmail').val(), $('#signUpFormPassword').val()).catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        }).then(function (user) {
+            user.updateProfile({
+                displayName: $('#firstNameForm').val() + ' ' + $('#lastNameForm').val(),
             }).then(function () {
-                $('#signUpFormEmail').val('');
-                $('#signUpFormPassword').val('');
-                $('#firstNameForm').val('');
-                $('#lastNameForm').val('');
-                if(location.pathname === '/signup'){
-                    location.replace('/posts');
-                }
-                else{
-                    location.reload();
-                }
-            }).catch(function (error) {
-                console.log(error);
+                $.ajax('/api/users', {
+                    type: 'POST',
+                    data: {
+                        id: user.uid,
+                        firstName: $('#firstNameForm').val(),
+                        lastName: $('#lastNameForm').val(),
+                        username: $('#firstNameForm').val() + ' ' + $('#lastNameForm').val()
+                    }
+                }).then(function () {
+                    $('#signUpFormEmail').val('');
+                    $('#signUpFormPassword').val('');
+                    $('#firstNameForm').val('');
+                    $('#lastNameForm').val('');
+                    if (location.pathname === '/signup') {
+                        location.replace('/posts');
+                    }
+                    else {
+                        location.reload();
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
             });
         });
-    });
+    }
+    else {
+        $("nav").after('<div class="alert alert-primary" role="alert">All fields required<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        if (alertTimeout) clearTimeout(alertTimeout);
+        alertTimeout = setTimeout(function () {
+            $(".alert").remove();
+        }, 5000);
+    }
 });
 
 $('#loginBtn').on('click', function (event) {
     event.preventDefault();
-    firebase.auth().signInWithEmailAndPassword($('#loginEmail').val(), $('#loginPassword').val()).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.error(errorCode, errorMessage);
-    });
-    $('#loginEmail').val('');
-    $('#loginPassword').val('');
+    if ($('#loginEmail').val().match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/) && $('#loginPassword').val().length > 5) {
+        firebase.auth().signInWithEmailAndPassword($('#loginEmail').val(), $('#loginPassword').val()).catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.error(errorCode, errorMessage);
+        });
+        $('#loginEmail').val('');
+        $('#loginPassword').val('');
+    }
+    else {
+        $("#login-nav").before('<div class="alert alert-primary" role="alert">All fields required<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        if (alertTimeout) clearTimeout(alertTimeout);
+        alertTimeout = setTimeout(function () {
+            $(".alert").remove();
+        }, 5000);
+    }
 });
 
 $('#loginFormBtn').on('click', function (event) {
     event.preventDefault();
-    firebase.auth().signInWithEmailAndPassword($('#loginFormEmail').val(), $('#loginFormPassword').val()).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.error(errorCode, errorMessage);
-    });
-    $('#loginFormEmail').val('');
-    $('#loginFormPassword').val('');
+    if ($('#loginFormEmail').val().match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/) && $('#loginFormPassword').val().length > 5) {
+        firebase.auth().signInWithEmailAndPassword($('#loginFormEmail').val(), $('#loginFormPassword').val()).catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.error(errorCode, errorMessage);
+        });
+        $('#loginFormEmail').val('');
+        $('#loginFormPassword').val('');
+    }
+    else {
+        $("nav").after('<div class="alert alert-primary" role="alert">All fields required<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        if (alertTimeout) clearTimeout(alertTimeout);
+        alertTimeout = setTimeout(function () {
+            $(".alert").remove();
+        }, 5000);
+    }
 });
 
 $('#logoutBtn').on('click', function (event) {
