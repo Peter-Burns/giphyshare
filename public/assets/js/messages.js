@@ -24,7 +24,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                         if (snap.val().message.match(/(https?:\/\/.*\.(?:png|jpg|gif))/i)) {
                             $('#messages').append('<li class="list-group-item firebaseMessage"><img class="img-fluid" src="' + snap.val().message + '"/><h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
                         }
-                        else if (snap.val().message.match(/(https:\/\/quiet-refuge-15988\.herokuapp\.com\/post\/)/i)) {
+                        else if (snap.val().message.match(/(https:\/\/giphyshare\.herokuapp\.com\/post\/)/i)) {
                             var postId = snap.val().message.split('/').pop();
                             $('#messages').append('<li class="list-group-item localPic firebaseMessage" data-link="' + snap.val().message + '" data-postId=' + postId + '><h6 class="text-right font-weight-light senderName" data-sender="' + snap.val().sender + '"</h6></li>');
                         }
