@@ -7,7 +7,7 @@
         <ul class="comments rounded">
             <li>
                 <p>{{username}}&nbsp;&nbsp;
-                <button data-from={{Followers.0.userId}} data-to={{Followers.0.followerId}} class="startConvo btn btn-success btn-sm">
+                <button data-to={{Followers.0.followerId}} class="startConvo btn btn-success btn-sm">
                     <i class="fa fa-envelope"></i> Start a conversation
                 </button>
                 <button type="submit" data-user={{Followers.0.userId}} data-id={{Followers.0.id}} class="unfollowUserBtn btn btn-outline-danger btn-sm">
