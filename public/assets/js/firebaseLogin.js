@@ -161,6 +161,8 @@ firebase.auth().onAuthStateChanged(function (user) {
         $('#submitComment').attr('data-user', user.uid);
         $('#accountBtn').hide();
         $('.signUpBtn').hide();
+        $('.startConvo').attr('data-from', user.uid);
+        $('.startConvo').show();
     } else {
         $('#userNav').hide();
         $('#feedNav').hide();
@@ -180,5 +182,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         $('#submitComment').attr('data-user', '');
         $('#accountBtn').show();
         $('.signUpBtn').show();
+        $('.startConvo').show();
+        $('.startConvo').attr('data-from', '');
     }
 });
